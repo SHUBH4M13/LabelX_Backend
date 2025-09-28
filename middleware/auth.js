@@ -1,4 +1,6 @@
 import Jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+dotenv.config()
 
 function authenticateJWT(req, res, next) {
   const authHeader = req.header['authorization'];

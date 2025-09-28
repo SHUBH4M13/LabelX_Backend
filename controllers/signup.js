@@ -1,9 +1,11 @@
 import userModel from "../models/user.js";
 import bcrypt from "bcrypt";
-import VerifyEmail from "../controllers/OTP.js";
+import {sendotpMail} from "../controllers/OTP.js";
 import Jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+dotenv.config()
 
-async function HandleCreateAcc(req, res) {
+export async function HandleCreateAcc(req, res) {
   const { firstName, lastName, email, password, allergy, disease } = req.body;
 
   try {
@@ -25,7 +27,7 @@ async function HandleCreateAcc(req, res) {
 
     const hashedpassword = await bcrypt.hash(password, 10);
 
-    VerifyEmail(email);
+    sendotpMail(email)
 
     const newUser = await userModel.create({
       firstName: firstName,
@@ -40,7 +42,9 @@ async function HandleCreateAcc(req, res) {
       success: true,
       message: "account created",
     });
+
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       success: false,
       message: "Failed to create account",
@@ -48,7 +52,7 @@ async function HandleCreateAcc(req, res) {
   }
 }
 
-async function HandleLogin(req, res) {
+export async function HandleLogin(req, res) {
   const { email, password } = req.body;
 
   try {
@@ -61,7 +65,7 @@ async function HandleLogin(req, res) {
 
     const userrecord = await userModel.findOne({ email: email });
 
-    if (!emailrecord) {
+    if (!userrecord) {
       return res.status(404).json({
         success: "False",
         msg: "Account not found",
@@ -88,6 +92,7 @@ async function HandleLogin(req, res) {
     });
     
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       success: "False",
       msg: "Failed to login",
@@ -95,4 +100,4 @@ async function HandleLogin(req, res) {
   }
 }
 
-export default { HandleCreateAcc, HandleLogin };
+
