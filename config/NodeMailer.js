@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer"
 
-const transporter = nodemailer.createTransport({
+const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true, 
@@ -10,3 +10,5 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+
+export default transport
