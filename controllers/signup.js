@@ -38,9 +38,14 @@ export async function HandleCreateAcc(req, res) {
       disease: disease,
     });
 
+    const token = Jwt.sign({ email: email }, process.env.JWT_KEY, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+
     return res.status(201).json({
       success: true,
       message: "account created",
+      token
     });
 
   } catch (error) {
@@ -81,7 +86,7 @@ export async function HandleLogin(req, res) {
       });
     }
 
-    const token = Jwt.sign({ _id: userrecord.id }, process.env.JWT_KEY, {
+    const token = Jwt.sign({ email: email }, process.env.JWT_KEY, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
