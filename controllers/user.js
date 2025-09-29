@@ -1,4 +1,4 @@
-import userModel from "../models/user";
+import userModel from "../models/user.js";
 
 export async function HandleGetUserInfo(req, res) {
   const email = req.user.email;
