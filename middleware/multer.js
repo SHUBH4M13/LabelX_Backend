@@ -9,4 +9,13 @@ const storage = multer.diskStorage({
     }
 })
 
-export const upload = multer({storage})
+const upload = multer({storage})
+
+export function UploadMiddleware(req,res,next){
+    upload.single("image")(req,res, function (err) {
+        if(err){
+            return res.status(400).json({ error: err.message });
+        }
+        next();
+    })
+}

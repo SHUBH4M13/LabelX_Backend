@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "http": "^0.0.1-security",
@@ -20,6 +21,7 @@
     "mongoose": "^8.18.2",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.6",
-    "npm": "^11.6.1"
+    "npm": "^11.6.1",
+    "tesseract.js": "^6.0.1"
   }
 }

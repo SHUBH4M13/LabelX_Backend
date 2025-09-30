@@ -3,6 +3,8 @@ import http from "http"
 import connectDB from "./models/connectDB.js";
 import userRouter from "./routes/user.js"
 import dotenv from "dotenv"
+import cors from "cors"
+
 dotenv.config()
 
 const PORT = 8005
@@ -12,6 +14,8 @@ const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
+
+// app.use(cors({ origin: process.env.FRONTEND_URL , credentials: true}))
 
 connectDB(`mongodb://127.0.0.1:27017/LabelX`)
 
