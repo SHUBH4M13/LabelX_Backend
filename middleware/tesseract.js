@@ -1,4 +1,5 @@
 import { createWorker } from "tesseract.js";
+import path from "path"
 
 export async function HandleImageToText(req, res, next) {
 
@@ -6,22 +7,17 @@ export async function HandleImageToText(req, res, next) {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  const worker = createWorker();
-
+  const worker = await createWorker('eng');
+  const imagePath = path.resolve(req.file.path)
+  console.log(imagePath)
   try {
-
-    await worker.load();
-    await worker.loadLanguage("eng");
-    await worker.initialize("eng");
-
-    const { data } = await worker.recognize(req.file.path);
-    req.ocrText = data.text;
-
-    await worker.terminate();
+    const { data } = await worker.recognize(imagePath);
+    console.log(data);
+    (await worker).terminate
     next();
 
   } catch (error) {
-    await worker.terminate();
-    return res.status(500).json({ error: "OCR failed", details: err.message });
+    (await worker).terminate
+    return res.status(500).json({message: error});
   }
 }

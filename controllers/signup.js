@@ -6,10 +6,10 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export async function HandleCreateAcc(req, res) {
-  const { firstName, lastName, email, password, allergy, disease } = req.body;
+  const { fullName , email, password, allergy, disease } = req.body;
 
   try {
-    if (!firstName || !email || !password) {
+    if (!fullName || !email || !password) {
       return res.status(400).json({
         success: false,
         message: "Required field are missing",
@@ -30,8 +30,7 @@ export async function HandleCreateAcc(req, res) {
     sendotpMail(email)
 
     const newUser = await userModel.create({
-      firstName: firstName,
-      lastName: lastName,
+      fullName: fullName,
       email: email,
       password: hashedpassword,
       allergy: allergy,

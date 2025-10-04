@@ -54,5 +54,5 @@ export async function HandleDeleteUserAcc(req, res) {
       msg: "Try again later",
     });
   }
-  z;
+
 }
