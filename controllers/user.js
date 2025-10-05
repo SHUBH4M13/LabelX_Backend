@@ -27,6 +27,19 @@ export async function HandleGetUserInfo(req, res) {
   }
 }
 
+export async function HandleGetUserMedicalInfo(){
+  try {
+    const info = await userModel
+    .findOne({email: email})
+    .select("-password -email -fullName -isVerified")
+    console.log("info " , info)
+    return info || null;
+
+  } catch (error) {
+    return `User dont have any Allergy or Health Issue mentioned`
+  }
+}
+
 export async function HandleDeleteUserAcc(req, res) {
   const email = req.user.email;
 
@@ -56,3 +69,5 @@ export async function HandleDeleteUserAcc(req, res) {
   }
 
 }
+
+

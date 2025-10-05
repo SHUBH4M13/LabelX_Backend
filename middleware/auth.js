@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 function authenticateJWT(req, res, next) {
-  const authHeader = req.header['authorization'];
+  const authHeader = req.headers['authorization'];
 
   if (authHeader && authHeader.startsWith(`Bearer `)) {
     const token = authHeader.split(" ")[1];

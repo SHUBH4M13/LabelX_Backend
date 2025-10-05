@@ -1,5 +1,6 @@
 import { createWorker } from "tesseract.js";
 import path from "path"
+import { UploadToCloudinary } from "../utils/cloudinary.js";
 
 export async function HandleImageToText(req, res, next) {
 
@@ -12,8 +13,9 @@ export async function HandleImageToText(req, res, next) {
   console.log(imagePath)
   try {
     const { data } = await worker.recognize(imagePath);
-    console.log(data);
+    req.ocrText = data.text;
     (await worker).terminate
+
     next();
 
   } catch (error) {

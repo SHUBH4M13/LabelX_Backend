@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import dotenv from dotenv
+import dotenv from "dotenv"
 import { response } from "express";
 dotenv.config()
 
@@ -26,6 +26,7 @@ export async function UploadToCloudinary( localFilePath ){
 
     } catch (error) {
         fs.unlinkSync(localFilePath)
+        console.log(error)
     }
 
 }
