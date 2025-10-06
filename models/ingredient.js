@@ -12,7 +12,7 @@ const ingredientSchema = new mongoose.Schema({
         type: String,
     },
     bannedIn:{
-        type: [String],
+        type: String,
     }
 })
 
